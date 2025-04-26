@@ -74,6 +74,11 @@ void DesignScreen::onEvent(SDL_Event e){
 		window->running.store(false);
 		return;
 	}
+	else if(e.type==SDL_MOUSEBUTTONDOWN){
+		if(e.button.button==SDL_BUTTON_LEFT){
+			std::cerr<<"DesignScreen Pos:"<<'('<<e.button.x<<' '<<e.button.y<<')'<<std::endl;
+		}
+	}
 }
 void DesignScreen::clean(){
 	
