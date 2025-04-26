@@ -25,18 +25,11 @@ void Appilication::execute(){
 		}
 		
 		if (SDL_PollEvent(&e)) {
-			if(e.type==SDL_WINDOWEVENT_HIDDEN)
-				std::cerr<<"Window close event"<<std::endl;
 			int id = e.window.windowID;
 			if (windowMap.find(id) != windowMap.end()) {
 				Screen* target = windowMap[id]->scr[windowMap[id]->which];
-				while (target->eventMutex.try_lock()) {
-					std::thread([target, e]() {
-						target->onEvent(e);
-						target->eventMutex.unlock();
-					}).detach();
-					break;
-				}
+				target->post([e,target]() {
+					target->onEvent(e);});
 			}
 		}
 		if(e.type == SDL_QUIT){

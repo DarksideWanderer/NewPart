@@ -23,13 +23,14 @@ void MainMenu::render(){
 	});
 }
 void MainMenu::onEvent(SDL_Event e){
-	
+	//SDL官方不建议这样写,事实上有非常奇怪的bug
 	if(e.window.event == SDL_WINDOWEVENT_CLOSE ||
 		e.window.event == SDL_WINDOWEVENT_HIDDEN){
 		running.store(false);
 		window->running.store(false);
 		return ;
 	}
+	
 }
 void MainMenu::clean(){
 	
@@ -51,6 +52,7 @@ void DesignScreen::render(){
 	eventCondition.wait_for(lock, std::chrono::milliseconds(1), [&](){
 		return !eventQueue.empty();
 	});
+	
 	while(!eventQueue.empty()){
 		auto task=std::move(eventQueue.front());
 		eventQueue.pop();
