@@ -5,6 +5,7 @@
 #include"window.h"
 
 struct Window;
+struct Widget;
 struct Screen{
 	std::atomic<bool> running;
 	Window *window;
@@ -29,7 +30,7 @@ struct Screen{
 struct MainMenu:public Screen{
 	
 	MainMenu(Window *wind):Screen(wind){}
-	SDL_Color color{0,0,0,255};
+	SDL_Color color{255,255,255,255};
 	void init()override;
 	void render()override;
 	void onEvent(SDL_Event e)override;

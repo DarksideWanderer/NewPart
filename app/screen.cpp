@@ -19,6 +19,11 @@ void MainMenu::render(){
 	window->app->post([this](){
 		SDL_SetRenderDrawColor(window->renderer,color.r,color.g,color.b,color.a);
 		SDL_RenderClear(window->renderer);
+	});
+	
+	for(auto &i:wid){i->render();}
+	
+	window->app->post([this](){
 		SDL_RenderPresent(window->renderer);
 	});
 }
@@ -37,6 +42,8 @@ void MainMenu::clean(){
 }
 void MainMenu::execute(){
 	init();
+	
+	wid.push_back(new Button(this,SDL_Rect{100,100,500,100}));
 	while(running.load()){
 		render();
 		std::this_thread::sleep_for(std::chrono::milliseconds(16));
@@ -64,6 +71,11 @@ void DesignScreen::render(){
 	window->app->post([this](){
 		SDL_SetRenderDrawColor(window->renderer,0,0,0,255);
 		SDL_RenderClear(window->renderer);
+	});
+	
+	for(auto &i:wid){i->render();}
+	
+	window->app->post([this](){
 		SDL_RenderPresent(window->renderer);
 	});
 }

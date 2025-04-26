@@ -51,13 +51,13 @@ void Appilication::init(){
 		std::thread([window](){window->execute();}).detach();
 		std::cerr<<"MainWindow created"<<std::endl;
 	});
-	post([this](){
-		Window *window=new DesignWindow(this);
-		window->init();
-		windowMap[SDL_GetWindowID(window->window)]=window;
-		std::thread([window](){window->execute();}).detach();
-		std::cerr<<"DesignWindow created"<<std::endl;
-	});
+	// post([this](){
+	// 	Window *window=new DesignWindow(this);
+	// 	window->init();
+	// 	windowMap[SDL_GetWindowID(window->window)]=window;
+	// 	std::thread([window](){window->execute();}).detach();
+	// 	std::cerr<<"DesignWindow created"<<std::endl;
+	// });
 }
 void Appilication::clean(){
 	SDL_Quit();
